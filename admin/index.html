@@ -81,15 +81,71 @@
     button:hover {
       background: #f2e8d5;
     }
+    /* --- Login panel --- */
+    #loginPanel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f0dc;
+    }
+    #loginCard {
+      background: #fffbea;
+      border: 2px solid #d1c7b7;
+      box-shadow: 0 4px #d1c7b7;
+      border-radius: 12px;
+      padding: 40px 60px;
+      text-align: center;
+    }
+    #loginCard h1 {
+      margin: 0 0 20px 0;
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+    #googleBtn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 2px solid #d1c7b7;
+      background: #fff;
+      padding: 10px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 16px;
+    }
+    #googleBtn:hover {
+      background: #f2e8d5;
+    }
+    #googleBtn img {
+      width: 20px;
+      height: 20px;
+    }
   </style>
 
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
 <body>
-  <div id="teams"></div>
+  <!-- Login panel -->
+  <div id="loginPanel">
+    <div id="loginCard">
+      <h1>城市尋寶｜管理員</h1>
+      <button id="googleBtn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon" />
+        <span>使用 Google 登入</span>
+      </button>
+    </div>
+  </div>
+  <!-- Admin panel (hidden until login) -->
+  <div id="adminPanel" style="display:none;">
+    <div id="teams"></div>
+  </div>
 
   <script>
+    let auth;
     // --- Firebase 設定 ---
     const firebaseConfig = {
       apiKey: "AIzaSyBLWYpv72R8z4XwZE6F2y9mdy4HDdiqkHc",
@@ -109,11 +165,35 @@
     // --- 初始化 ---
     function init() {
       const app = firebase.initializeApp(firebaseConfig);
-      db = firebase.database(app);
-      db.ref("cityScavengerHunt").on("value", (snap) => {
-        teams = snap.val() || [];
-        render();
+      auth = firebase.auth(app);
+      const loginPanel = document.getElementById("loginPanel");
+      const adminPanel = document.getElementById("adminPanel");
+      document.getElementById("googleBtn").onclick = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider);
+      };
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          // Logged in: show admin UI
+          loginPanel.style.display = "none";
+          adminPanel.style.display = "block";
+          // Load database only after auth success
+          db.ref("cityScavengerHunt").on("value", (snap) => {
+            teams = snap.val() || [];
+            render();
+          });
+        } else {
+          // Logged out: show login UI
+          loginPanel.style.display = "flex";
+          adminPanel.style.display = "none";
+        }
       });
+      db = firebase.database(app);
+      // The following listener is now handled inside onAuthStateChanged after login
+      // db.ref("cityScavengerHunt").on("value", (snap) => {
+      //   teams = snap.val() || [];
+      //   render();
+      // });
     }
 
     // --- 介面繪製 ---
@@ -189,6 +269,13 @@
     }
 
     window.addEventListener("DOMContentLoaded", init);
+
+    // Optional: press Esc to sign out
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "Escape" && auth) {
+        auth.signOut();
+      }
+    });
   </script>
 </body>
 </html>
