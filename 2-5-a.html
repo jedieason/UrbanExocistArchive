@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>2-4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, #f5f0dc, #eae2c3);
+    font-family: Arial, sans-serif;
+    color: #000;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+    .title {
+      padding: 15px;
+      font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+      font-size: 24px;
+      background: #fffbea;
+      border: 2px solid #d1c7b7;
+      box-shadow: 0 4px #d1c7b7;
+      border-radius: 10px;
+    }
+  .content {
+    flex: 1;
+    background: #fffbea;
+    border: 2px solid #d1c7b7;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: inset 0 2px #d1c7b7;
+    margin-bottom: 20px;
+    line-height: 2;
+  }
+  .confirm-btn {
+    align-self: center;
+    padding: 12px 32px;
+    font-size: 18px;
+    background: #fffbea; color: #000;
+    border: 2px solid #d1c7b7;
+    box-shadow: 0 4px #d1c7b7;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .confirm-btn:hover {
+    background: #f2e8d5;
+    transform: translateY(-2px);
+  }
+  .confirm-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #d1c7b7;
+  }
+    .input-area {
+      margin-bottom: 24px;
+    }
+  .input-area input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 15px;
+    border: 2px solid #d1c7b7;
+    border-radius: 15px;
+    outline: none;
+    background: #fffbea;
+    box-shadow: inset 0 2px #d1c7b7;
+    transition: background 0.2s ease;
+  }
+  .input-area input:focus {
+    background: #f2e8d5;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">內卷即地獄</div>
+    <div class="content">
+      <p>打開編號為eta的信封袋</p>
+      <p>一本學習歷程檔案驀地靜躺在信封袋中。裡面充滿陌生的資料頁面，每一頁卻都寫著你們其中一個人的名字。</p>
+      <p>你愣住了。這些事情，你不記得自己做過，有些甚至從沒聽過。</p>
+      <p>紙上出現一行字：</p>
+      <p>「你，還記得自己真實的樣子嗎？」</p>
+      <p>你必須證明──這些是你真的走過的路，而不是怕被比較、怕被看輕時，硬塞進去的謊。這是不是一場用來騙人的考試，也不是騙自己太久的結果。</p>
+      <p>請前往捷運北門站B1，找回學習歷程中空缺的部分，證明這是你真正的人生軌跡。</p>
+    </div>
+    <div class="input-area">
+      <input type="text" placeholder="請依據提示輸入密碼">
+    </div>
+    <button class="confirm-btn" type="button">送出</button>
+  </div>
+</body>
+</html>

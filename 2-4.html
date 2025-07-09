@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>2-4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, #f5f0dc, #eae2c3);
+    font-family: Arial, sans-serif;
+    color: #000;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+    .title {
+      padding: 15px;
+      font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+      font-size: 24px;
+      background: #fffbea;
+      border: 2px solid #d1c7b7;
+      box-shadow: 0 4px #d1c7b7;
+      border-radius: 10px;
+    }
+  .content {
+    flex: 1;
+    background: #fffbea;
+    border: 2px solid #d1c7b7;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: inset 0 2px #d1c7b7;
+    margin-bottom: 20px;
+    line-height: 2;
+  }
+  .confirm-btn {
+    align-self: center;
+    padding: 12px 32px;
+    font-size: 18px;
+    background: #fffbea; color: #000;
+    border: 2px solid #d1c7b7;
+    box-shadow: 0 4px #d1c7b7;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .confirm-btn:hover {
+    background: #f2e8d5;
+    transform: translateY(-2px);
+  }
+  .confirm-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #d1c7b7;
+  }
+    .input-area {
+      margin-bottom: 24px;
+    }
+  .input-area input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 15px;
+    border: 2px solid #d1c7b7;
+    border-radius: 15px;
+    outline: none;
+    background: #fffbea;
+    box-shadow: inset 0 2px #d1c7b7;
+    transition: background 0.2s ease;
+  }
+  .input-area input:focus {
+    background: #f2e8d5;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">內卷即地獄</div>
+    <div class="content">
+      <p>打開編號為zeta的信封袋</p>
+      <p>積滿粉筆灰的門裡，堆著無數破碎的考卷與模型。微積分是拼圖、化學式是煙火、歷史人物是搞笑四格漫畫。每一張考卷旁邊，都有塗鴉註解：</p>
+      <p>「喔喔這題我懂，氫氦鋰鈹硼，像極了愛情。」</p>
+      <p>然後你聽見她的聲音，慵懶又俏皮：</p>
+      <p>「別那麼嚴肅啦～世界太無聊，我就幫它換個台詞。」</p>
+      <p>這是卷解，她把題目當笑話，卻不想讓人發現，她刻苦的努力。</p>
+      <p>「口訣是一襲輕鬆的外套，爬滿內卷的蝨子。」</p>
+      <p>她將譬喻道盡荒謬。她等著你們笑，笑得無防備、笑得像真的開心。她輕哂，側過頭，像在等你捫心自問：這句話可笑嗎？</p>
+      <p>還是——這是她藏起疲憊的方式？</p>
+      <p>卷解討厭繁雜的試卷，請根據填字遊戲上的指引，前往機場捷運B1F預辦登機大廳，能看見玻璃窗外面有接送車道和牆壁上字體龐大的詩句，幫忙解答卷解的填字遊戲謎題，才有辦法見到她本尊。</p>
+    </div>
+    <div class="input-area">
+      <input type="text" placeholder="請依據提示輸入密碼">
+    </div>
+    <button class="confirm-btn" type="button">送出</button>
+  </div>
+</body>
+</html>

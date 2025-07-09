@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f5f0dc;
+      color: #000;
+    }
+    .team-row {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #d1c7b7;
+    }
+    .team-name {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .progress-wrapper {
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    .steps {
+      display: flex;
+      gap: 40px;           /* 拉大間距方便點擊 */
+      align-items: center;
+      position: relative;
+    }
+    /* 捷運軌道 */
+
+    /* 軌道連接線：每個節點連接前一節點 */
+    .step + .step::before {
+      content: "";
+      position: absolute;
+      top: 29%;
+      left: -40px;           /* 與 gap 值相同，確保線段長度一致 */
+      width: 40px;           /* 與 gap 值相同 */
+      height: 4px;
+      background: #d1c7b7;
+      transform: translateY(-50%);
+      z-index: 0;            /* 保持在線段下方，圓點上方 */
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      cursor: pointer;
+      flex: 0 0 auto;
+      position: relative;
+      z-index: 1;          /* 讓圓點浮在軌道上面 */
+    }
+    .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #d1c7b7;
+      background: #fffbea;
+      margin-bottom: 4px;
+      transition: background 0.2s;
+    }
+    .step.current .dot {
+      background: #d1c7b7; /* 已到達 */
+    }
+    .step.selected .dot {
+      background: #f2e8d5; /* 選取準備前往 */
+    }
+    button {
+      padding: 6px 12px;
+      border: 2px solid #d1c7b7;
+      background: #fffbea;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+    button:hover {
+      background: #f2e8d5;
+    }
+  </style>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div id="teams"></div>
+
+  <script>
+    // --- Firebase 設定 ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLWYpv72R8z4XwZE6F2y9mdy4HDdiqkHc",
+      authDomain: "city-scavenger-hunt-2025.firebaseapp.com",
+      databaseURL:
+        "https://city-scavenger-hunt-2025-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "city-scavenger-hunt-2025",
+      storageBucket: "city-scavenger-hunt-2025.firebasestorage.app",
+      messagingSenderId: "950959276332",
+      appId: "1:950959276332:web:cbbd2bd8dc49619aa42c89",
+      measurementId: "G-5GE9NWQ1YP",
+    };
+
+    let db;
+    let teams = [];
+
+    // --- 初始化 ---
+    function init() {
+      const app = firebase.initializeApp(firebaseConfig);
+      db = firebase.database(app);
+      db.ref("cityScavengerHunt").on("value", (snap) => {
+        teams = snap.val() || [];
+        render();
+      });
+    }
+
+    // --- 介面繪製 ---
+    function render() {
+      const container = document.getElementById("teams");
+      container.innerHTML = "";
+
+      teams.forEach((t, i) => {
+        const row = document.createElement("div");
+        row.className = "team-row";
+
+        // 組別名稱
+        const name = document.createElement("div");
+        name.className = "team-name";
+        name.textContent = "第 " + (t.team || i + 1) + " 組";
+        row.appendChild(name);
+
+        // 進度條
+        const wrap = document.createElement("div");
+        wrap.className = "progress-wrapper";
+
+        const stepsEl = document.createElement("div");
+        stepsEl.className = "steps";
+
+        const seq = t.sequence || [];
+        const curVal = t.current;
+        // 支援舊的 index 與新的 step-id
+        let curIndex = Number(curVal) || 0;
+
+        let selectedIndex = curIndex;
+        let selectedStepId = seq[curIndex] || "";
+
+        seq.forEach((s, idx) => {
+          const step = document.createElement("div");
+          step.className = "step";
+          if (idx === curIndex) step.classList.add("current");
+
+          const dot = document.createElement("div");
+          dot.className = "dot";
+
+          const label = document.createElement("div");
+          label.textContent = s;
+
+          step.appendChild(dot);
+          step.appendChild(label);
+
+          step.onclick = () => {
+            // 取消其他選取
+            stepsEl.querySelectorAll(".step").forEach((d) =>
+              d.classList.remove("selected")
+            );
+            step.classList.add("selected");
+            selectedIndex = idx;
+            selectedStepId = s;
+          };
+
+          stepsEl.appendChild(step);
+        });
+
+        wrap.appendChild(stepsEl);
+        row.appendChild(wrap);
+
+        // 確認按鈕：寫入 index 而非 step id
+        const btn = document.createElement("button");
+        btn.textContent = "確認";
+        btn.onclick = () => {
+          db.ref("cityScavengerHunt/" + i).update({ current: selectedIndex });
+        };
+        row.appendChild(btn);
+
+        container.appendChild(row);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

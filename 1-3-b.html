@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>1-3-b</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  html, body { margin:0; height:100%; background:linear-gradient(to bottom,#f5f0dc,#eae2c3); font-family:Arial,sans-serif; color:#000; }
+  .container{display:flex;flex-direction:column;height:100%;padding:20px;box-sizing:border-box;}
+  .title{padding:15px;font-weight:bold;text-align:center;margin-bottom:10px;font-size:24px;background:#fffbea;border:2px solid #d1c7b7;box-shadow:0 4px #d1c7b7;border-radius:10px;}
+  .content{flex:1;background:#fffbea;border:2px solid #d1c7b7;border-radius:8px;padding:15px;overflow-y:auto;box-shadow:inset 0 2px #d1c7b7;margin-bottom:20px;line-height:2;}
+  .confirm-btn{align-self:center;padding:12px 32px;font-size:18px;background:#fffbea;color:#000;border:2px solid #d1c7b7;box-shadow:0 4px #d1c7b7;border-radius:8px;cursor:pointer;transition:background 0.2s ease,transform 0.1s ease;}
+  .confirm-btn:hover{background:#f2e8d5;transform:translateY(-2px);}
+  .confirm-btn:active{transform:translateY(2px);box-shadow:0 2px #d1c7b7;}
+  .input-area{margin-bottom:24px;}
+  .input-area input{width:100%;box-sizing:border-box;font-size:16px;padding:15px;border:2px solid #d1c7b7;border-radius:15px;outline:none;background:#fffbea;box-shadow:inset 0 2px #d1c7b7;transition:background 0.2s ease;}
+  .input-area input:focus{background:#f2e8d5;}
+  mark {
+    border-radius: 5px;
+  }
+  .highlight-red {
+    background-color: rgba(205, 60, 58, 0.3);
+    color: rgb(207, 3, 0);
+  }
+  .highlight-yellow {
+    background-color: rgba(203, 145, 47, 0.3);
+    color: rgb(160, 115, 36);
+  }
+  .highlight-blue {
+    background-color: rgba(51, 126, 169, 0.3);
+    color: rgba(51, 126, 169, 1);
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">苦盡甘來遇線你</div>
+    <div class="content">
+      <p><strong>打開編號為alpha的信封袋</strong></p>
+      <p>一如既往，我早她十分鐘到中山地下街和台北車站的交界。地下街的人一如往常，快步走著，各自擦肩。沒有人注意到我緊張得把外套拉鍊反覆拉了三次。</p>
+      <p>檸檬綠走過來時，乾笑了一下：「安老師，你又提早了喔。」我點了點頭，沒有馬上接話，只問：「妳明天...真的要跟他去北投？」</p>
+      <p>「對啊。」她說得自然，好像只是要去超商買個麵包那麼簡單。</p>
+      <p>「但是...」我沒有使用憤怒的語氣詞，只是陳述。</p>
+      <p>她看著我：「我不可能喜歡他，你知道的。」</p>
+      <p>我苦笑了一下：「那妳能不能不去？」</p>
+      <p>她沒說話，我們之間的靜默像是早已演練過的劇本，只是換了場景。</p>
+      <p>正當我們兩人眼神交會，周遭的時空與聲音突然靜止了。不是比喻──冷氣聲停止、鞋底碰地的節奏消失了，遠處便利商店的招牌燈也定格在閃爍前的一刻。</p>
+      <p>我低頭，看到自己指尖上多出一道<mark class="highlight-red">紅線</mark>。細細的、微暖的、幾乎透明，但我知道它在動。紅線沿著地磚蜿蜒，牽向我們腳邊的方向──那裡，有個我從沒注意過的一整排<strong><mark class="highlight-red">置物櫃</mark></strong>，鐵著，發著一點淡淡的紅光。</p>
+      <p>帶著疑惑的我們走近，櫃門上寫著：</p>
+      <p>「時間已被封存，若想讓它繼續，請重新閱讀你們的回憶。」</p>
+      <p>請前往台北車站與中山地下街交接口（M2附近），找到一整排的置物櫃。根據「回憶的囚圖」的逃脫步驟解出密碼，輸入App中，繼續暫停的時間。</p>
+      <p>（本故事純屬虛構，如有雷同，純屬巧合。）</p>
+    </div>
+    <div class="input-area">
+      <input type="text" placeholder="請依據提示輸入密碼">
+    </div>
+    <button class="confirm-btn" type="button">送出</button>
+  </div>
+</body>
+</html>

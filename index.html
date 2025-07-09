@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>城市尋寶：都市除妖錄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+    }
+    #page-container {
+      height: 100%;
+    }
+    #alert-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #alert-modal.show {
+      display: flex;
+    }
+    #alert-modal .content {
+      background: #fffbea;
+      border: 2px solid #d1c7b7;
+      box-shadow: 0 4px #d1c7b7;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    #alert-modal button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      background: #fffbea;
+      border: 2px solid #d1c7b7;
+      box-shadow: 0 4px #d1c7b7;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #alert-modal button:hover {
+      background: #f2e8d5;
+      transform: translateY(-2px);
+    }
+    #alert-modal button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #d1c7b7;
+    }
+  </style>
+  <style id="page-style"></style>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="page-container"></div>
+  <div id="alert-modal">
+    <div class="content">
+      <p id="alert-text"></p>
+      <button id="alert-close" type="button">確認</button>
+    </div>
+  </div>
+</body>
+</html>
