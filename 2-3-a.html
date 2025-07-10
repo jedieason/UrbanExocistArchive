@@ -60,6 +60,24 @@
     transform: translateY(2px);
     box-shadow: 0 2px #d1c7b7;
   }
+      .input-area {
+      margin-bottom: 24px;
+    }
+  .input-area input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 15px;
+    border: 2px solid #d1c7b7;
+    border-radius: 15px;
+    outline: none;
+    background: #fffbea;
+    box-shadow: inset 0 2px #d1c7b7;
+    transition: background 0.2s ease;
+  }
+  .input-area input:focus {
+    background: #f2e8d5;
+  }
   </style>
 </head>
 <body>
@@ -73,7 +91,10 @@
       <p>「痛苦就是證明你還沒放棄的唯一方式。」</p>
       <p>請前往<b>Y區地下街Y4</b>，找到在座位區讀「<b>觀念生物化學</b>」的卷割，問問他「<b>你是卷割嗎？</b>」，幫忙破除他的執念。</p>
     </div>
-    <button class="confirm-btn" type="button">繼續</button>
+    <div class="input-area">
+      <input type="text" placeholder="請依據提示輸入密碼">
+    </div>
+    <button class="confirm-btn" type="button">送出</button>
   </div>
 </body>
 </html>
