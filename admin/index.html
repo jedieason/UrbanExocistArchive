@@ -161,6 +161,11 @@
     };
 
     let db;
+    // Detect LINE, FB, IG, etc. in‑app browsers (they block Google pop‑ups)
+    function isInAppBrowser() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      return /Line|FBAN|FBAV|Instagram|Twitter|Messenger|Pinterest/i.test(ua);
+    }
     let teams = [];
 
     // --- 初始化 ---
@@ -171,7 +176,21 @@
       const adminPanel = document.getElementById("adminPanel");
       document.getElementById("googleBtn").onclick = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithRedirect(provider);
+        if (isInAppBrowser()) {
+          // In‑app browsers can’t do pop‑ups; use redirect
+          auth.signInWithRedirect(provider);
+        } else {
+          // Try pop‑up first for smoother UX; fallback to redirect if blocked
+          auth
+            .signInWithPopup(provider)
+            .catch((err) => {
+              if (err.code === "auth/popup-blocked" || err.code === "auth/popup-closed-by-user") {
+                auth.signInWithRedirect(provider);
+              } else {
+                console.error("Popup sign‑in error:", err.code, err.message);
+              }
+            });
+        }
       };
       auth.onAuthStateChanged((user) => {
         if (user) {
@@ -179,6 +198,7 @@
           loginPanel.style.display = "none";
           adminPanel.style.display = "block";
           // Load database only after auth success
+          if (!db) db = firebase.database(app);
           db.ref("cityScavengerHunt").on("value", (snap) => {
             teams = snap.val() || [];
             render();
@@ -189,13 +209,13 @@
           adminPanel.style.display = "none";
         }
       });
-      db = firebase.database(app);
       // Handle redirect result (in case we just returned from Google sign‑in)
       auth.getRedirectResult()
         .then((result) => {
           if (result.user) {
             loginPanel.style.display = "none";
             adminPanel.style.display = "block";
+            if (!db) db = firebase.database(app);
             db.ref("cityScavengerHunt").on("value", (snap) => {
               teams = snap.val() || [];
               render();
