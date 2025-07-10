@@ -108,7 +108,8 @@
       align-items: center;
       gap: 12px;
       border: 2px solid #d1c7b7;
-      background: #fff;
+      background: #ffffff;
+      color: #000000;
       padding: 10px 24px;
       border-radius: 10px;
       cursor: pointer;
@@ -170,7 +171,7 @@
       const adminPanel = document.getElementById("adminPanel");
       document.getElementById("googleBtn").onclick = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
+        auth.signInWithRedirect(provider);
       };
       auth.onAuthStateChanged((user) => {
         if (user) {
@@ -189,6 +190,21 @@
         }
       });
       db = firebase.database(app);
+      // Handle redirect result (in case we just returned from Google sign‑in)
+      auth.getRedirectResult()
+        .then((result) => {
+          if (result.user) {
+            loginPanel.style.display = "none";
+            adminPanel.style.display = "block";
+            db.ref("cityScavengerHunt").on("value", (snap) => {
+              teams = snap.val() || [];
+              render();
+            });
+          }
+        })
+        .catch((err) => {
+          console.error("Redirect sign‑in error:", err.code, err.message);
+        });
       // The following listener is now handled inside onAuthStateChanged after login
       // db.ref("cityScavengerHunt").on("value", (snap) => {
       //   teams = snap.val() || [];
