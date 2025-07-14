@@ -1,3 +1,4 @@
+
 const firebaseConfig = {
   apiKey: "AIzaSyBLWYpv72R8z4XwZE6F2y9mdy4HDdiqkHc",
   authDomain: "city-scavenger-hunt-2025.firebaseapp.com",
@@ -265,12 +266,13 @@ function attachHandler(id) {
     if (nextId) {
       await updateCurrent(nextIndex);
       const finales = {
-        '1-2': '苦盡甘來遇線你',
-        '2-5-b': '內卷即地獄',
-        '3-9': '我們與醫的距離'
+        // 終點關卡完成提示
+        '1-6': '恭喜完成「苦盡甘來遇線你」\n隱藏任務已解鎖 可打開編號為delta的信封袋',
+        '2-6': '恭喜完成「內卷即地獄」\n隱藏任務已解鎖 可打開編號為theta的信封袋',
+        '3-6': '恭喜完成「我們與醫的距離」\n隱藏任務已解鎖 可打開編號為theta的信封袋'
       };
       if (finales[id]) {
-        showAlert(`恭喜完成「${finales[id]}」`);
+        showAlert(`${finales[id]}`);
         const close = document.getElementById('alert-close');
         const handler = async () => {
           close.removeEventListener('click', handler);
