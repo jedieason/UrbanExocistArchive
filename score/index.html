@@ -38,19 +38,29 @@
     }
     return score;
   }
-  async function init(){
+  function updateTable(teams){
+    const body = document.getElementById('score-body');
+    body.innerHTML = '';
+    teams.forEach(t => {
+      const tr = document.createElement('tr');
+      const tdTeam = document.createElement('td');
+      tdTeam.textContent = t.team;
+      const tdScore = document.createElement('td');
+      tdScore.textContent = calcScore(t);
+      tr.appendChild(tdTeam);
+      tr.appendChild(tdScore);
+      body.appendChild(tr);
+    });
+  }
+  function init(){
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
-    const snap = await db.ref('cityScavengerHunt').get();
-    const teams = snap.val() || [];
-    const body = document.getElementById('score-body');
-    teams.forEach(t=>{
-      const tr=document.createElement('tr');
-      const tdTeam=document.createElement('td');
-      tdTeam.textContent=t.team;
-      const tdScore=document.createElement('td');
-      tdScore.textContent=calcScore(t);
-      tr.appendChild(tdTeam);tr.appendChild(tdScore);body.appendChild(tr);
+
+    // Listen for real‑time updates
+    db.ref('cityScavengerHunt').on('value', snap => {
+      const data = snap.val() || [];
+      const teams = Array.isArray(data) ? data : Object.values(data);
+      updateTable(teams);
     });
   }
   window.addEventListener('DOMContentLoaded',init);
@@ -68,4 +78,3 @@
   </div>
 </body>
 </html>
-
