@@ -26,7 +26,20 @@
     appId: "1:950959276332:web:cbbd2bd8dc49619aa42c89",
     measurementId: "G-5GE9NWQ1YP"
   };
-  const puzzlePages = ['1-3-b','1-4-b','1-5-b','2-3-a','2-4','2-5-a','3-3','3-4','3-5','3-6','3-7','3-8'];
+  const pagePasswords = {
+    '1-3-b': 'RUBIES',
+    '1-4-b': '256',
+    '1-5-b': '牽知己',
+    '2-3-a': '別用分數定義我',
+    '2-5-a': '真實的自己藏在標準答案外',
+    '3-3': '失衡的他倒臥在⾃⼰設計的庇護之中',
+    '3-4': 'CF泰B越A菲ED',
+    '3-5': '工17GIMETRALA',
+    '3-6': '850000',
+    '3-7': '明公軍AW大城老大老老老老秋整霜',
+    '3-8': '慕勝天坦都里烤雞烤餅圓周率東南'
+  };
+  const puzzlePages = [...Object.keys(pagePasswords), '2-4'];
   function calcScore(team){
     const curr = Number(team.current);
     let score=0;
